@@ -46,17 +46,23 @@ $(function () {
         })
     })
 
-    // 监听登录
+    // 监听登录 登录功能
     $('#form_login').on('submit', function (e) {
+        // 组织表单提交
         e.preventDefault()
+        // 发送ajax
         $.ajax({
             method: 'POST',
             url: '/api/login',
             data: $(this).serialize(),
             success: function (res) {
+                // 效验返回状态
                 if (res.status !== 0) return layer.msg(res.message)
+                // 提示信息,保存tokem 跳转页面
                 layer.msg(res.message)
+                //保存token 未来的接口要是用token
                 localStorage.setItem('token', res.token)
+                //跳转
                 location.href = '/index.html'
             }
         })
